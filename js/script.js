@@ -40,7 +40,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
   //Timer
 
-  const deadline = '2021-09-01';
+  const deadline = '2021-10-01';
 
   function getTimeRemaining(endtime) {
     const t = Date.parse(endtime) - Date.parse(new Date()); // В МИЛИСЕКУНДАХ 
@@ -129,7 +129,7 @@ window.addEventListener('DOMContentLoaded', () => {
     }
   })
   
-  const modalTimerId = setTimeout(openModal, 3000);
+  const modalTimerId = setTimeout(openModal, 5000);
 
   function showModalByScroll() {
     if (window.pageYOffset + document.documentElement.clientHeight >= document.documentElement.scrollHeight) {
