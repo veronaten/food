@@ -143,12 +143,13 @@ window.addEventListener('DOMContentLoaded', () => {
    // Создаем краточки с помощью классов
 
   class MenuCard {
-    constructor(src, alt, subtitle, descr, price, parentSelector) {
+    constructor(src, alt, subtitle, descr, price, parentSelector, ...classes) {
       this.src = src;
       this.alt = alt;
       this.subtitle = subtitle;
       this.descr = descr;
       this.price = price;
+      this.classes = classes;
       this.parent = document.querySelector(parentSelector);
       this.transfer = 27;
       this.changeToUAH();
@@ -160,9 +161,14 @@ window.addEventListener('DOMContentLoaded', () => {
 
     render() {
       const elem = document.createElement('div');
+      if (this.classes.length === 0) {
+        this.elem = 'menu__item';
+        elem.classList.add(this.elem);
+      }  else {
+        this.classes.forEach(className => elem.classList.add(className));
+      }
 
       elem.innerHTML = `
-      <div class="menu__item">
         <img src=${this.src} alt=${this.alt}>
         <h3 class="menu__item-subtitle">${this.subtitle}</h3>
         <div class="menu__item-descr">${this.descr}</div>
@@ -171,7 +177,6 @@ window.addEventListener('DOMContentLoaded', () => {
           <div class="menu__item-cost">Цена:</div>
           <div class="menu__item-total"><span>${this.price}</span> грн/день</div>
         </div>
-      </div>
       `
       this.parent.append(elem);
     }
