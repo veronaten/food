@@ -188,19 +188,19 @@ window.addEventListener('DOMContentLoaded', () => {
     return await res.json();
   }
 
-  axios.get('http://localhost:3000/menu')
-    .then(data => {
-      data.data.forEach(({img, altimg, title, descr, price}) => {
-        new MenuCard(img, altimg, title, descr, price, '.menu .container').render();
-      });
-    })
-
-  // getResource('http://localhost:3000/menu')
+  // axios.get('http://localhost:3000/menu')
   //   .then(data => {
-  //     data.forEach(({img, altimg, title, descr, price}) => {
+  //     data.data.forEach(({img, altimg, title, descr, price}) => {
   //       new MenuCard(img, altimg, title, descr, price, '.menu .container').render();
   //     });
-  //   });
+  //   })
+
+  getResource('http://localhost:3000/menu')
+    .then(data => {
+      data.forEach(({img, altimg, title, descr, price}) => {
+        new MenuCard(img, altimg, title, descr, price, '.menu .container').render();
+      });
+    });
 
   //forms
 
@@ -281,4 +281,52 @@ window.addEventListener('DOMContentLoaded', () => {
       closeModal();
     }, 4000);
   }
+
+  //Slider
+
+  const sliders = document.querySelectorAll('.offer__slide');
+  const prev = document.querySelector('.offer__slider-prev');
+  const next = document.querySelector('.offer__slider-next');
+  const total = document.querySelector('#total');
+  const current = document.querySelector('#current');
+  let numberSlides = 1;
+
+  if (sliders.length < 10 ) {
+    total.textContent = `0${sliders.length}`;
+  } else {
+    total.textContent = sliders.length;
+  }
+
+  showSlides(numberSlides);
+
+  function showSlides(n) {
+    if (n > sliders.length) {
+      numberSlides = 1;
+    }
+
+    if (n < 1) {
+      numberSlides = sliders.length;
+    }
+
+    sliders.forEach(item => item.style.display = 'none');
+    sliders[numberSlides - 1].style.display = 'block';
+
+    if (sliders.length < 10 ) {
+      current.textContent = `0${numberSlides}`;
+    } else {
+      current.textContent = numberSlides;
+    }
+  }
+
+  function plusSlides(n) {
+    showSlides(numberSlides += n);
+  }
+
+  prev.addEventListener('click', () => {
+    plusSlides(-1);
+  })
+
+  next.addEventListener('click', () => {
+    plusSlides(1);
+  })
 });
