@@ -26,5 +26,5 @@ window.addEventListener('DOMContentLoaded', () => {
     field: '.offer__slider-inner'
   });
   tabs('.tabheader__item', '.tabcontent', '.tabheader__items', 'tabheader__item_active');
-  timer('.timer', '2021-10-01');
+  timer('.timer', '2022-12-01');
 });
